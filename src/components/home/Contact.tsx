@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 
 const Contact = () => {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [selectedProgram, setSelectedProgram] = useState("Select a program");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,12 +41,10 @@ const Contact = () => {
 
       const result = await response.json();
 
-      // Add this line temporarily 👇
-      console.log("Web3Forms response:", result);
-
       if (result.success) {
         setStatus("success");
         form.reset();
+        setSelectedProgram("Select a program"); 
       } else {
         setStatus("error");
       }
@@ -157,15 +156,17 @@ const Contact = () => {
                 <select
                   id="program"
                   name="program"
+                  value={selectedProgram}
+                  onChange={(e) => setSelectedProgram(e.target.value)}
                   className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  <option>Select a program</option>
-                  <option>Animal Welfare</option>
-                  <option>Child Welfare</option>
-                  <option>Education: English & STEM</option>
-                  <option>Girl Child Empowerment</option>
-                  <option>Sports Empowerment</option>
-                  <option>Community Outreach</option>
+                  <option value="Select a program">Select a program</option>
+                  <option value="Animal Welfare">Animal Welfare</option>
+                  <option value="Child Welfare">Child Welfare</option>
+                  <option value="Education: English & STEM">Education: English & STEM</option>
+                  <option value="Girl Child Empowerment">Girl Child Empowerment</option>
+                  <option value="Sports Empowerment">Sports Empowerment</option>
+                  <option value="Community Outreach">Community Outreach</option>
                 </select>
               </div>
 
