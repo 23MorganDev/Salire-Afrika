@@ -1,15 +1,57 @@
+import { useState } from "react"
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Send, Instagram, Facebook, Twitter } from "lucide-react";
+import { Phone, Mail, MapPin, Send, Instagram, Twitter, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
+
 
 const Contact = () => {
-  const handleSubmit = (e: React.FormEvent) => {
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.success("Message sent! We'll get back to you shortly.");
+    setStatus("loading");
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    // Convert FormData to a plain JSON object
+    const data = Object.fromEntries(formData.entries());
+
+    // Attach Web3Forms access key and config
+    const payload = {
+      ...data,
+      access_key: "53073008-a68b-43dc-b605-3be051ca5bbc",
+      subject: "New Application from Salire Afrika Website",
+      from_name: "Salire Afrika Contact Form",
+    };
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      // Add this line temporarily 👇
+      console.log("Web3Forms response:", result);
+
+      if (result.success) {
+        setStatus("success");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -27,7 +69,7 @@ const Contact = () => {
               Start Your Journey With Salire Afrika
             </h3>
             <p className="text-lg text-slate-600 mb-10 leading-relaxed">
-              Have questions about our programs, accommodation, or the application process? 
+              Have questions about our programs, accommodation, or the application process?
               Our team in Laikipia, Kenya is ready to help you plan your impactful stay.
             </p>
 
@@ -85,21 +127,36 @@ const Contact = () => {
             className="bg-slate-50 p-8 md:p-10 rounded-3xl border border-slate-100 shadow-xl shadow-black/5"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="name">Full Name</Label>
-                  <Input id="name" placeholder="John Doe" required className="bg-white" />
+                  <Input
+                    id="name"
+                    name="name"
+                    placeholder="John Doe"
+                    required
+                    className="bg-white"
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="email">Email Address</Label>
-                  <Input id="email" type="email" placeholder="john@example.com" required className="bg-white" />
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="john@example.com"
+                    required
+                    className="bg-white"
+                  />
                 </div>
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="program">Program of Interest</Label>
-                <select 
-                  id="program" 
+                <select
+                  id="program"
+                  name="program"
                   className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <option>Select a program</option>
@@ -114,17 +171,37 @@ const Contact = () => {
 
               <div className="space-y-2">
                 <Label htmlFor="message">Your Message</Label>
-                <Textarea 
-                  id="message" 
-                  placeholder="Tell us about your interests and potential travel dates..." 
+                <Textarea
+                  id="message"
+                  name="message"
+                  placeholder="Tell us about your interests and potential travel dates..."
                   className="min-h-[150px] bg-white"
-                  required 
+                  required
                 />
               </div>
 
-              <Button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white h-12 text-lg">
-                Send Application <Send className="ml-2 h-4 w-4" />
+              {/* Success message */}
+              {status === "success" && (
+                <div className="rounded-md bg-emerald-50 border border-emerald-200 p-4 text-emerald-700 text-sm">
+                  ✅ Your application has been sent successfully! We'll be in touch soon.
+                </div>
+              )}
+
+              {/* Error message */}
+              {status === "error" && (
+                <div className="rounded-md bg-red-50 border border-red-200 p-4 text-red-700 text-sm">
+                  ❌ Something went wrong. Please try again or contact us directly.
+                </div>
+              )}
+
+              <Button
+                type="submit"
+                disabled={status === "loading"}
+                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white h-12 text-lg"
+              >
+                {status === "loading" ? "Sending..." : <>Send Application <Send className="ml-2 h-4 w-4" /></>}
               </Button>
+
             </form>
           </motion.div>
         </div>
