@@ -32,8 +32,13 @@ const About = () => {
       image: "https://storage.googleapis.com/dala-prod-public-storage/attachments/b51397a8-5aff-4f34-8617-20fb234d9db9/1777448974980_Pauline_W._Njiru.jpg"
     },
     {
+      name: 'Julius Githimi "Uncle J"',
+      role: "Founder",
+      image: "https://storage.googleapis.com/dala-prod-public-storage/attachments/b51397a8-5aff-4f34-8617-20fb234d9db9/1778519778477_Uncle_J.jpg"
+    },
+    {
       name: "Michael Kinyua",
-      role: "Co-founder",
+      role: "Founder",
       image: "https://storage.googleapis.com/dala-prod-public-storage/attachments/b51397a8-5aff-4f34-8617-20fb234d9db9/1777450775746_Michael_Kinyua_co-founder.jpg"
     }
   ];
@@ -125,7 +130,7 @@ const About = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto">
             {team.map((member, index) => (
               <motion.div
                 key={member.name}
