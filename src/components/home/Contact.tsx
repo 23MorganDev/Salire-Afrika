@@ -24,7 +24,7 @@ const Contact = () => {
     // Attach Web3Forms access key and config
     const payload = {
       ...data,
-      access_key: "53073008-a68b-43dc-b605-3be051ca5bbc",
+      access_key: "21041e22-abf5-4f81-8256-13ad92bbff15",
       subject: "New Application from Salire Afrika Website",
       from_name: "Salire Afrika Contact Form",
     };
