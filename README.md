@@ -1,6 +1,6 @@
 <<<<<<< HEAD
 # Salire-Afrika
-A website for Slaire Afrika Foundation.
+A website for Salire Afrika Foundation.
 =======
 # React + Vite + shadcn/ui Starter Template
 
