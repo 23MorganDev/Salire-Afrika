@@ -90,7 +90,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="font-bold text-slate-900">Email</p>
-                  <p className="text-slate-600">info@salireafrika.or.ke</p>
+                  <p className="text-slate-600">salireafrika@gmail.com</p>
                 </div>
               </div>
 
