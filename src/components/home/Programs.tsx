@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import { 
-  PawPrint, 
-  BookOpen, 
-  Leaf, 
+import {
+  PawPrint,
+  BookOpen,
+  Leaf,
   Code2,
   Stethoscope,
   HeartHandshake,
@@ -110,8 +110,8 @@ const Programs = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className="h-full border-none shadow-md hover:shadow-xl transition-all duration-300 group overflow-hidden bg-white">
-                <div className="relative h-48 overflow-hidden">
+              <Card className="border-none shadow-md hover:shadow-xl transition-all duration-300 group overflow-hidden bg-white flex flex-col">
+                <div className="relative h-48 overflow-hidden shrink-0">
                   <img
                     src={program.image}
                     alt={program.title}
@@ -129,14 +129,14 @@ const Programs = () => {
                   </div>
                   <CardTitle className="text-lg font-bold text-slate-900">{program.title}</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-slate-600 text-sm leading-relaxed line-clamp-3">
+                <CardContent className="flex-1">
+                  <CardDescription className="text-slate-600 text-sm leading-relaxed">
                     {program.description}
                   </CardDescription>
                 </CardContent>
-                <CardFooter className="mt-auto">
+                <CardFooter>
                   <Button variant="ghost" className="text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 p-0 h-auto font-semibold group/btn">
-                    Join Program <span className="ml-1 group-hover/btn:translate-x-1 transition-transform">\u2192</span>
+                    Join Program <span className="ml-1 group-hover/btn:translate-x-1 transition-transform">→</span>
                   </Button>
                 </CardFooter>
               </Card>
